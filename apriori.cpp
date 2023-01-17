@@ -3,6 +3,7 @@
 #include <set>
 #include <map>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -146,7 +147,7 @@ void print(vector<Transaction> &t){
     }
 }
 
-void print(vector<set<int>> &itemset_vec){
+void print(vector<set<int>> &itemset_vec){      
     cout << "Final candidates: \n";
     for (auto s : itemset_vec){
         for (int element : s){
@@ -164,5 +165,22 @@ int main(){
     }
     // cout << "set no " << cur_itemset_no << endl;
     print(transactions);
-    print(c.back());
+    print(c.back()); 
+    
+    set<int> left = {1,4};
+    set<int> right = {3};
+
+    set<int> union_set;
+    union_set.insert(left.begin(), left.end());
+    union_set.insert(right.begin(), right.end());
+
+    double l_d = frequency[union_set];
+    double r_d = frequency[right];
+
+    cout << "confidence : ";
+    for (int i : left) cout << i << " ";
+    cout << "-> ";
+    for (int i : right) cout << i << " ";
+    cout << " = ";
+    cout << l_d / r_d << endl;       
 }
